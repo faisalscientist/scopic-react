@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import {  BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/login';
 import Authorized from './components/Authorized';
 import AutoBidConfig from './pages/auto-bid-config';

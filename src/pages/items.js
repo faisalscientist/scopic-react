@@ -6,7 +6,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const Items = ({priceSort = 'asc'}) => {
+const Items = ({priceSort = 'asc', fetchedItems}) => {
   const [searchKey, setSearchKey] = useState('');
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState({});
@@ -33,6 +33,7 @@ const Items = ({priceSort = 'asc'}) => {
       }
       setItems(data);
       setDisplayItems(data.data);
+      fetchedItems(data.data)
     }
     setLoading(true);
     fetchData();
@@ -42,7 +43,8 @@ const Items = ({priceSort = 'asc'}) => {
 
   return (
     <>
-      {!loading ? <><div className="text-red-500 text-center mb-3">{errorMessage}</div>
+      {!loading ? <>
+        {displayItems.length > 0 ? <><div className="text-red-500 text-center mb-3">{errorMessage}</div>
       <div className="flex justify-between items-center">
         <div className="border border-gray-300 w-11/12 flex rounded-lg px-3 py-2">
           <input type="text" id="searchInput" placeholder="Enter search key" className="flex-1 outline-none focus:outline-none" />
@@ -88,7 +90,8 @@ const Items = ({priceSort = 'asc'}) => {
           containerClassName={'paginator'}
           activeClassName={'active'}
         />
-      </div></> : <div className="text-center mt-20"><FontAwesomeIcon icon={faSpinner} spin size="2x" /></div>}
+      </div></> : <div className="text-center text-xl font-bold">No auction items to display at this time</div>}
+      </> : <div className="text-center mt-20"><FontAwesomeIcon icon={faSpinner} spin size="2x" /></div>}
     </>
   )
 }
